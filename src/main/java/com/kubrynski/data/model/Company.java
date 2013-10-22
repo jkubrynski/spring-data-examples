@@ -20,6 +20,9 @@ public class Company extends AbstractEntity {
   @OneToMany(cascade = CascadeType.ALL)
   private Set<User> users = new HashSet<User>();
 
+  @OneToMany(cascade = CascadeType.ALL)
+  private Set<Project> projects = new HashSet<Project>();
+
   public Company() {
   }
 
@@ -46,5 +49,18 @@ public class Company extends AbstractEntity {
   public void addUser(User user) {
     user.setCompany(this);
     users.add(user);
+  }
+
+  public Set<Project> getProjects() {
+    return projects;
+  }
+
+  public void setProjects(Set<Project> projects) {
+    this.projects = projects;
+  }
+
+  public void addProject(Project project) {
+    projects.add(project);
+    project.setCompany(this);
   }
 }

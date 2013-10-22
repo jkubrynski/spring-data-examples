@@ -20,7 +20,8 @@ import javax.sql.DataSource;
  * @since 2013-03-30
  */
 @Configuration
-@EnableJpaRepositories(basePackages = "com.kubrynski.data.repository", repositoryFactoryBeanClass = GenericRepositoryFactoryBean.class)
+@EnableJpaRepositories(basePackages = "com.kubrynski.data.repository",
+    repositoryFactoryBeanClass = GenericRepositoryFactoryBean.class)
 @EnableTransactionManagement
 public class DataConfig {
 

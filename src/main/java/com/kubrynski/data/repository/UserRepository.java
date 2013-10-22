@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   List<User> findByCompanyNameOrderByLoginAsc(String companyName);
 
+  List<User> findByCompany_Projects_Name(String projectName);
+
 }

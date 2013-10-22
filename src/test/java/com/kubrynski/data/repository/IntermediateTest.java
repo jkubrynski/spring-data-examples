@@ -2,6 +2,7 @@ package com.kubrynski.data.repository;
 
 import com.kubrynski.data.config.DataConfig;
 import com.kubrynski.data.model.Company;
+import com.kubrynski.data.model.Project;
 import com.kubrynski.data.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,9 @@ public class IntermediateTest extends AbstractTestNGSpringContextTests {
 
     Company company = new Company();
     company.setName(COMPANY_NAME);
+
+    company.addProject(new Project("big"));
+    company.addProject(new Project("small"));
 
     company.addUser(new User("Zenon"));
     company.addUser(new User(FIRST_USER_LOGIN));
@@ -80,5 +84,12 @@ public class IntermediateTest extends AbstractTestNGSpringContextTests {
     assertEquals(secondPage.getNumberOfElements(), 1);
     assertEquals(secondPage.getNumber(), 1);
 
+  }
+
+  public void shouldReturnUsersByProjectName() {
+    List<User> big = userRepository.findByCompany_Projects_Name("big");
+
+    assertNotNull(big);
+    assertEquals(big.size(), 2);
   }
 }

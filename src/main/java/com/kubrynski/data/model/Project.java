@@ -1,6 +1,7 @@
 package com.kubrynski.data.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * @author jkubrynski@gmail.com
@@ -10,6 +11,9 @@ import javax.persistence.Entity;
 public class Project extends AbstractEntity {
 
   private String name;
+
+  @ManyToOne
+  private Company company;
 
   public Project() {
   }
@@ -24,5 +28,13 @@ public class Project extends AbstractEntity {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setCompany(Company company) {
+    this.company = company;
+  }
+
+  public Company getCompany() {
+    return company;
   }
 }
