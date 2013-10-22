@@ -28,6 +28,8 @@ public class AdvancedTest extends AbstractTestNGSpringContextTests {
 
   @BeforeMethod
   public void setUp() throws Exception {
+    companyRepository.deleteAll();
+
     Company wjug = new Company("WJUG");
     wjug.addUser(new User("Adam"));
     wjug.addUser(new User("Leszek"));

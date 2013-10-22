@@ -35,6 +35,8 @@ public class IntermediateTest extends AbstractTestNGSpringContextTests {
 
   @BeforeClass
   public void setUp() throws Exception {
+    companyRepository.deleteAll();
+
     Company company = new Company();
     company.setName(COMPANY_NAME);
 

@@ -1,5 +1,6 @@
 package com.kubrynski.data.config;
 
+import com.kubrynski.data.repository.generic.GenericRepositoryFactoryBean;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,7 @@ import javax.sql.DataSource;
  * @since 2013-03-30
  */
 @Configuration
-@EnableJpaRepositories(basePackages = "com.kubrynski.data.repository")
+@EnableJpaRepositories(basePackages = "com.kubrynski.data.repository", repositoryFactoryBeanClass = GenericRepositoryFactoryBean.class)
 @EnableTransactionManagement
 public class DataConfig {
 
