@@ -18,6 +18,13 @@ public class Company extends AbstractEntity {
   @OneToMany(cascade = CascadeType.ALL)
   private Set<User> users = new HashSet<User>();
 
+  public Company() {
+  }
+
+  public Company(String name) {
+    this.name = name;
+  }
+
   public String getName() {
     return name;
   }

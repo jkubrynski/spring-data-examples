@@ -4,6 +4,8 @@ import com.kubrynski.data.config.DataConfig;
 import com.kubrynski.data.model.Company;
 import com.kubrynski.data.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
@@ -40,10 +42,11 @@ public class IntermediateTest extends AbstractTestNGSpringContextTests {
     company.addUser(new User(FIRST_USER_LOGIN));
     companyRepository.save(company);
 
-    Company otherCompany = new Company();
-    otherCompany.setName("BJUG");
+    Company otherCompany = new Company("BJUG");
     otherCompany.addUser(new User());
     companyRepository.save(otherCompany);
+
+    companyRepository.save(new Company("PJUG"));
   }
 
   public void shouldReturnUsersByCompanyName() {
@@ -59,5 +62,21 @@ public class IntermediateTest extends AbstractTestNGSpringContextTests {
     assertNotNull(users);
     assertEquals(users.size(), 2);
     assertEquals(users.get(0).getLogin(), FIRST_USER_LOGIN);
+  }
+
+  public void shouldReturnPaginatedCompanies() {
+    Page<Company> firstPage = companyRepository.findAll(new PageRequest(0, 2));
+    assertNotNull(firstPage);
+    assertEquals(firstPage.getSize(), 2);
+    assertEquals(firstPage.getNumberOfElements(), 2);
+    assertEquals(firstPage.getNumber(), 0);
+    assertEquals(firstPage.getTotalElements(), 3);
+    assertEquals(firstPage.getTotalPages(), 2);
+
+    Page<Company> secondPage = companyRepository.findAll(new PageRequest(1, 2));
+    assertEquals(secondPage.getSize(), 2);
+    assertEquals(secondPage.getNumberOfElements(), 1);
+    assertEquals(secondPage.getNumber(), 1);
+
   }
 }
