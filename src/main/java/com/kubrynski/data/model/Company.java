@@ -2,6 +2,7 @@ package com.kubrynski.data.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
  * @since 2013-10-22
  */
 @Entity
+@NamedQuery(name = "Company.legacyNamedQuery", query = "select c from Company c where c.users.size > ?1")
 public class Company extends AbstractEntity {
 
   private String name;
