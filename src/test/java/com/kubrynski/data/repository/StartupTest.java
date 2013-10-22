@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -25,7 +26,7 @@ public class StartupTest extends AbstractTestNGSpringContextTests {
   private static final String LOGIN = "my_login";
   private static final String EMAIL = "name@domain.com";
   private static final String OTHER_LOGIN = "other_login";
-  private static final String OTHER_EMAIL = "other@domain.org";
+  private static final String OTHER_EMAIL = "other@Domain.org";
 
   @Autowired
   private AbstractEntityManagerFactoryBean entityManagerFactoryBean;
@@ -51,10 +52,16 @@ public class StartupTest extends AbstractTestNGSpringContextTests {
     entityManager.getTransaction().commit();
   }
 
-  public void shouldReturnUser() {
+  public void shouldReturnUserByLogin() {
     User user = userRepository.findUserByLogin(LOGIN);
 
     assertNotNull(user);
     assertEquals(user.getEmail(), EMAIL);
+  }
+
+  public void shouldReturnUserByDomainFragment() {
+    List<User> users = userRepository.findByEmailLikeIgnoreCase("%@domain%");
+    assertNotNull(users);
+    assertEquals(users.size(), 2);
   }
 }
