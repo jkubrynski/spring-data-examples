@@ -51,4 +51,11 @@ public class AdvancedTest extends AbstractTestNGSpringContextTests {
     assertEquals(companies.size(), 1);
     assertEquals(companies.get(0).getName(), "WJUG");
   }
+
+  public void shouldReturnCompaniesByCustomMethod() {
+    List<Company> companies = companyRepository.findCompaniesBiggerThan(2);
+    assertNotNull(companies);
+    assertEquals(companies.size(), 1);
+    assertEquals(companies.get(0).getName(), "WJUG");
+  }
 }
