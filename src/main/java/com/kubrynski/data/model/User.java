@@ -1,6 +1,7 @@
 package com.kubrynski.data.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * @author jkubrynski@gmail.com
@@ -11,6 +12,9 @@ public class User extends AbstractEntity {
 
   private String login;
   private String email;
+
+  @ManyToOne
+  private Company company;
 
   public String getLogin() {
     return login;
@@ -26,5 +30,13 @@ public class User extends AbstractEntity {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public Company getCompany() {
+    return company;
+  }
+
+  public void setCompany(Company company) {
+    this.company = company;
   }
 }

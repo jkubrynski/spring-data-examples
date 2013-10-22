@@ -59,9 +59,10 @@ public class StartupTest extends AbstractTestNGSpringContextTests {
     assertEquals(user.getEmail(), EMAIL);
   }
 
-  public void shouldReturnUserByDomainFragment() {
+  public void shouldReturnUsersByDomainFragment() {
     List<User> users = userRepository.findByEmailLikeIgnoreCase("%@domain%");
     assertNotNull(users);
     assertEquals(users.size(), 2);
   }
+
 }
