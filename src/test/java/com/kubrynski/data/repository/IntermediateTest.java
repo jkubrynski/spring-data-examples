@@ -23,6 +23,7 @@ import static org.testng.Assert.assertNotNull;
 public class IntermediateTest extends AbstractTestNGSpringContextTests {
 
   private static final String COMPANY_NAME = "WJUG";
+  private static final String FIRST_USER_LOGIN = "Adam";
 
   @Autowired
   private CompanyRepository companyRepository;
@@ -35,9 +36,14 @@ public class IntermediateTest extends AbstractTestNGSpringContextTests {
     Company company = new Company();
     company.setName(COMPANY_NAME);
 
-    company.addUser(new User());
-    company.addUser(new User());
+    company.addUser(new User("Zenon"));
+    company.addUser(new User(FIRST_USER_LOGIN));
     companyRepository.save(company);
+
+    Company otherCompany = new Company();
+    otherCompany.setName("BJUG");
+    otherCompany.addUser(new User());
+    companyRepository.save(otherCompany);
   }
 
   public void shouldReturnUsersByCompanyName() {
@@ -45,5 +51,13 @@ public class IntermediateTest extends AbstractTestNGSpringContextTests {
 
     assertNotNull(users);
     assertEquals(users.size(), 2);
+  }
+
+  public void shouldReturnUsersByCompanyNameOrderedByLogin() {
+    List<User> users = userRepository.findByCompanyNameOrderByLoginAsc(COMPANY_NAME);
+
+    assertNotNull(users);
+    assertEquals(users.size(), 2);
+    assertEquals(users.get(0).getLogin(), FIRST_USER_LOGIN);
   }
 }

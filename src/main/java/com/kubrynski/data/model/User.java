@@ -16,6 +16,13 @@ public class User extends AbstractEntity {
   @ManyToOne
   private Company company;
 
+  public User() {
+  }
+
+  public User(String login) {
+    this.login = login;
+  }
+
   public String getLogin() {
     return login;
   }
