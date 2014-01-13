@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author jkubrynski@gmail.com
@@ -19,5 +20,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long>, Company
   List<Company> legacyNamedQuery(Integer usersCount);
 
 	List<Company> findByTechnolgies(String technology);
+
+	List<Company> findDistinctByTechnolgiesIn(Set<String> technology);
 
 }

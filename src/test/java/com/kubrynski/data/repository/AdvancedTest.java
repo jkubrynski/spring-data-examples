@@ -10,6 +10,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -36,6 +37,7 @@ public class AdvancedTest extends AbstractTestNGSpringContextTests {
     wjug.addUser(new User("Zbigniew"));
 		wjug.getTechnolgies().add("Java");
 		wjug.getTechnolgies().add("Scala");
+		wjug.getTechnolgies().add("JRuby");
 		companyRepository.save(wjug);
     Company bjug = new Company("BJUG");
     bjug.addUser(new User("Kazimierz"));
@@ -66,6 +68,16 @@ public class AdvancedTest extends AbstractTestNGSpringContextTests {
 
 	public void shouldReturnCompaniesWorkingInTechnology() {
 		List<Company> companies = companyRepository.findByTechnolgies("Java");
+		assertNotNull(companies);
+		assertEquals(companies.size(), 1);
+		assertEquals(companies.get(0).getName(), "WJUG");
+	}
+
+	public void shouldReturnCompaniesWorkingInTechnologies() {
+		HashSet<String> technologies = new HashSet<String>();
+		technologies.add("Java");
+		technologies.add("Scala");
+		List<Company> companies = companyRepository.findDistinctByTechnolgiesIn(technologies);
 		assertNotNull(companies);
 		assertEquals(companies.size(), 1);
 		assertEquals(companies.get(0).getName(), "WJUG");
