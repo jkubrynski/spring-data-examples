@@ -34,11 +34,14 @@ public class AdvancedTest extends AbstractTestNGSpringContextTests {
     wjug.addUser(new User("Adam"));
     wjug.addUser(new User("Leszek"));
     wjug.addUser(new User("Zbigniew"));
-    companyRepository.save(wjug);
+		wjug.getTechnolgies().add("Java");
+		wjug.getTechnolgies().add("Scala");
+		companyRepository.save(wjug);
     Company bjug = new Company("BJUG");
     bjug.addUser(new User("Kazimierz"));
     bjug.addUser(new User("Zenon"));
-    companyRepository.save(bjug);
+		bjug.getTechnolgies().add("Groovy");
+		companyRepository.save(bjug);
   }
 
   public void shouldReturnCompaniesInDTOs() {
@@ -60,4 +63,11 @@ public class AdvancedTest extends AbstractTestNGSpringContextTests {
     assertEquals(companies.size(), 1);
     assertEquals(companies.get(0).getName(), "WJUG");
   }
+
+	public void shouldReturnCompaniesWorkingInTechnology() {
+		List<Company> companies = companyRepository.findByTechnolgies("Java");
+		assertNotNull(companies);
+		assertEquals(companies.size(), 1);
+		assertEquals(companies.get(0).getName(), "WJUG");
+	}
 }

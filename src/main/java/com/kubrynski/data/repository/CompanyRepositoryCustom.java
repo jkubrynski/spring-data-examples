@@ -11,4 +11,5 @@ import java.util.List;
 public interface CompanyRepositoryCustom {
 
   List<Company> findCompaniesBiggerThan(final int size);
+
 }

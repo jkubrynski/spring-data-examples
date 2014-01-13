@@ -40,4 +40,5 @@ public class CustomRepositoryFactoryTest extends AbstractTestNGSpringContextTest
     assertNotNull(byUuid);
     assertEquals(byUuid, all.get(0));
   }
+
 }

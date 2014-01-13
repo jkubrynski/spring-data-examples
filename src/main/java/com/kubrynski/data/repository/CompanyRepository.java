@@ -18,4 +18,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long>, Company
 
   List<Company> legacyNamedQuery(Integer usersCount);
 
+	List<Company> findByTechnolgies(String technology);
+
 }
